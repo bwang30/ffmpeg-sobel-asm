@@ -874,6 +874,9 @@ static int param_init(AVFilterContext *ctx)
         if (s->depth > 8)
             for (p = 0; p < s->nb_planes; p++)
                 s->filter[p] = filter16_sobel;
+#if CONFIG_CONVOLUTION_FILTER && ARCH_X86_64
+        ff_sobel_init_x86(s);
+#endif
     } else if (!strcmp(ctx->filter->name, "kirsch")) {
         if (s->depth > 8)
             for (p = 0; p < s->nb_planes; p++)
@@ -885,6 +888,11 @@ static int param_init(AVFilterContext *ctx)
     }
 
     return 0;
+}
+
+int ff_filter_param_init(AVFilterContext *ctx)
+{
+    return param_init(ctx);
 }
 
 static int config_input(AVFilterLink *inlink)
