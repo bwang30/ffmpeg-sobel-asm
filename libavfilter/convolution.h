@@ -61,4 +61,5 @@ typedef struct ConvolutionContext {
 } ConvolutionContext;
 
 void ff_convolution_init_x86(ConvolutionContext *s);
+void ff_sobel_init_x86(ConvolutionContext *s);
 #endif
