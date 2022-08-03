@@ -890,6 +890,11 @@ static int param_init(AVFilterContext *ctx)
     return 0;
 }
 
+int ff_filter_param_init(AVFilterContext *ctx)
+{
+    return param_init(ctx);
+}
+
 static int config_input(AVFilterLink *inlink)
 {
     AVFilterContext *ctx = inlink->dst;
